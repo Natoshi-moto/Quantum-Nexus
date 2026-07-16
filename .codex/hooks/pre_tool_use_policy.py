@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail closed before Codex tools can access private control-plane files."""
+"""Fail closed before task-agent tools access private control-plane files."""
 
 from __future__ import annotations
 
@@ -10,9 +10,20 @@ from typing import Any, Iterable
 
 PROTECTED_MARKERS = (
     ".codex",
+    ".claude",
     "no_leak_vault",
     "local-runs",
 )
+
+PROTECTED_TOOLS = {
+    "Bash",
+    "Edit",
+    "Glob",
+    "Grep",
+    "Read",
+    "Write",
+    "apply_patch",
+}
 
 
 def strings(value: Any) -> Iterable[str]:
@@ -53,7 +64,7 @@ def main() -> int:
         return 2
 
     tool_name = str(payload.get("tool_name", ""))
-    if tool_name not in {"Bash", "apply_patch"}:
+    if tool_name not in PROTECTED_TOOLS:
         return 0
 
     tool_input = payload.get("tool_input", {})
