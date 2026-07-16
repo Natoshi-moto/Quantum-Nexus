@@ -8,3 +8,12 @@ network_access = false
 
 [features]
 hooks = true
+
+[[hooks.PreToolUse]]
+matcher = "^(Bash|apply_patch)$"
+
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = '/usr/bin/python3 "$(git rev-parse --show-toplevel)/.codex/hooks/pre_tool_use_policy.py"'
+timeout = 10
+statusMessage = "Checking private control-plane boundary"
