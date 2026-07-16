@@ -89,3 +89,16 @@ PR #1 proposed the canonical project map and its sanitized task receipt from tas
 This separate integration session independently reverified live GitHub state immediately before merging: PR head `5589d634b1898416b94e43d92d9c44e8f15397cf` was two commits ahead and zero behind unchanged `main`; the merge base was the task-opening commit; and the complete diff contained exactly `design/PROJECT_MAP.md` and `control/receipts/TASK-0007-project-map.md`. The PR was marked ready and merged with GitHub's history-preserving merge method at `0e1b76a632f1858172b6110c4aa4b288e7dff4f1`, preserving map commit `e1d35c3e53bb1cf7cb236f5fc3f7e934b815c14a` and receipt commit `5589d634b1898416b94e43d92d9c44e8f15397cf`.
 
 `NEXUS-CAPSULE-0001` remains a `RECOMMENDATION` only. This integration grants no authority to implement it, import private or external material, alter governance, or claim the proposed unified product already exists.
+
+
+## TASK-0010 no-leak secret-boundary integration
+
+PR #2 repaired the scanner's OpenAI-style token alternative so word-internal text such as the accurate TASK-0009 branch name no longer triggers the `sk-` rule. The accepted source branch was `codex/task-0010-no-leak-secret-boundary` at reviewed head `c56c9e68ddd865a904c8217360da3c7322fb2288`, based on unchanged task-opening main `1e6fe94a786e4bd6856e09ca203ea2a46caa1ad5`.
+
+The human repository owner supplied and attributed an external fresh Claude Code verdict of `APPROVE` for those exact bytes — `T3_RELAYED` in this integration session. This separate integration session independently reverified live GitHub state immediately before writing: the PR was open at the expected head and base; its merge base was exactly the task-opening main; it was mergeable without a reported conflict; and the complete diff contained exactly `.codex/no_leak_guard.sh`, `tests/test_no_leak_secret_pattern.sh`, and `control/receipts/TASK-0010-no-leak-secret-boundary.md`. The guard expression's only semantic text change was `sk-[A-Za-z0-9_-]{20,}` to `(^|[^A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}`; all other alternatives were byte-identical. Shell syntax and `bash tests/test_no_leak_secret_pattern.sh` passed — `T1_EXECUTED` against fetched head content.
+
+The PR was marked ready and merged with GitHub's history-preserving `merge` method plus expected-head guard at merge commit `861747138721d5e641684e49fbfe5c6c31847c21`. The merge preserved all four source commits through head `c56c9e68ddd865a904c8217360da3c7322fb2288`; it was not squashed, rebased, force-updated, or rewritten.
+
+Exception retained: the new lexical boundary deliberately does not flag an `sk-` shape immediately preceded by an ASCII alphanumeric character. This narrow false-negative trade-off is documented in the task receipt; the regression does not prove general secret detection.
+
+**TASK-0009 remains blocked and unintegrated.** This merge only repairs the scanner. It does not review, approve, clear, commit, or integrate the user's staged TASK-0009 files; those files must be preserved, synchronized onto this reviewed guard, restored, cleaned of generated pycache staging, and rerun through the canonical no-leak guard before TASK-0009 can continue.
