@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(/.codex/**)",
+      "Edit(/.codex/**)",
+      "Read(/.claude/**)",
+      "Edit(/.claude/**)",
+      "Read(/.git/**)",
+      "Edit(/.git/**)",
+      "WebFetch",
+      "WebSearch",
+      "mcp__*",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git reset *)",
+      "Bash(git clean *)",
+      "Bash(git switch *)",
+      "Bash(git checkout *)",
+      "Bash(git config *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(ssh *)",
+      "Bash(scp *)"
+    ],
+    "disableBypassPermissionsMode": "disable"
+  },
+  "disableClaudeAiConnectors": true,
+  "disableRemoteControl": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Edit|Write|Read|Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.codex/hooks/pre_tool_use_policy.py"
+            ],
+            "timeout": 10,
+            "statusMessage": "Checking private control-plane boundary"
+          }
+        ]
+      }
+    ]
+  }
+}
