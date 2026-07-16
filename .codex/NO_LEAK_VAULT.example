@@ -1,0 +1,29 @@
+# NO_LEAK_VAULT v1
+#
+# Copy this file to .codex/NO_LEAK_VAULT on the PC and replace the placeholder
+# paths. The real file is local-only and blocked by .gitignore.
+#
+# This is DATA, never shell code. Do not add quotes around values.
+VERSION=1
+EXPECTED_ORIGIN=Natoshi-moto/Quantum-Nexus
+DUMP_ROOT=/absolute/path/to/the/outer/Quantum-Nexus-DUMP
+REPO_ROOT=/absolute/path/to/the/outer/Quantum-Nexus-DUMP/Quantum-Nexus
+MAX_STAGED_FILE_BYTES=5242880
+
+# Paths are relative to DUMP_ROOT. Codex may read them, but must never export
+# their contents. The guard blocks exact whole-file copies from these paths.
+NO_EXPORT_PATH=REPLACE_WITH_RELATIVE_PROTECTED_PATH
+# NO_EXPORT_PATH=another/relative/protected/path
+
+# Add a SHA-256 digest when a protected source is outside NO_EXPORT_PATH or
+# when you want to block an exact payload without naming its source path.
+# NO_EXPORT_SHA256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+
+# Repository-relative glob patterns that must never be staged.
+DENY_REPO_PATH=.env
+DENY_REPO_PATH=.env.*
+DENY_REPO_PATH=*.pem
+DENY_REPO_PATH=*.key
+DENY_REPO_PATH=*.p12
+DENY_REPO_PATH=*.pfx
+DENY_REPO_PATH=local-dump/*

@@ -5,3 +5,9 @@ Thumbs.db
 # Local-only working files — never repo-ready by default
 /local-dump/
 *.local.*
+
+# PC Codex local-only control state
+/.codex/NO_LEAK_VAULT
+/.codex/NO_LEAK_VAULT.*
+!/.codex/NO_LEAK_VAULT.example
+/.codex/local-runs/

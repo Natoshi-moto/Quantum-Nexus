@@ -19,6 +19,8 @@ This repo is the record of that work. It is not, itself, a claim that everything
 | `handoffs/` | Dated session handoff notes from any agent (CLI or chat) that touched the project | pending import |
 | `transcripts/` | Index of every session/round that touched this project, with links where linkable | pending import |
 | `external/` | Third-party code this project depends on or references, kept separate from original work | pending import |
+| `control/` | Bounded PC Codex task envelopes and sanitized receipts | smoke test ready |
+| `.codex/` | Repo-scoped sandbox defaults, NO_LEAK template, guard, and host launcher | smoke test ready |
 
 "Pending import" means: the content exists in the working `.zip` snapshot but hasn't been moved into the repo yet, because a few structural decisions need the human's sign-off first. See `SYNC_LEDGER.md` for exactly what's outstanding.
 
@@ -31,3 +33,7 @@ Rule: nothing reaches this repo except through that named, versioned zip. Not th
 ## Working rules
 
 See `AGENTS.md` for the full builder contract. Short version: verify before claiming, non-execution firewall on all archived/raw content, append-only history, flag a concern once then execute the human's call, log every session.
+
+## PC Codex bootstrap
+
+The outer PC folder is readable context but never a writable or export-authorized workspace. PC Codex runs only in the nested `Quantum-Nexus` checkout, with shell-command network access disabled and writes bounded to that checkout. The real `.codex/NO_LEAK_VAULT` stays local and ignored; only its redacted template is public. See `design/PC_CODEX_CONTROL_PLANE.md`.

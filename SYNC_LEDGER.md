@@ -40,3 +40,7 @@ Ran a pattern scan (AWS keys, PEM private key headers, OpenAI-style `sk-` tokens
 - **Session 1 (2026-07-16, chat interface):** Read round-1 zip and GitHub profile/repo. Drafted this scaffold. GitHub write access broken all session — see `handoffs/HANDOFF_2026-07-16_chat-session-1.md` for full detail. Nothing pushed.
 
 - **Session 3 (2026-07-16, ChatGPT Work):** Authenticated as `Natoshi-moto`; repository permissions reported `admin` and `push`. Performed and read back a real write test, landed the reviewed scaffold, removed the test file, verified all 11 files exactly, and independently ran the supplied genesis verifier/tests. See `handoffs/HANDOFF_2026-07-16_chatgpt-session-3.md`.
+
+## PC Codex control-plane bootstrap
+
+A fail-closed PC-side prototype was added after the scaffold. The real `.codex/NO_LEAK_VAULT` is local-only and ignored; the public repo contains only a redacted template. Local T1 tests observed: valid configuration passed; safe staged content passed; an exact copy of protected dump content was blocked; an obvious credential pattern was blocked; and a symlink/path escape was blocked without printing protected content. The smoke task is ready but **has not run on the user's PC**, so remote control is not yet claimed.

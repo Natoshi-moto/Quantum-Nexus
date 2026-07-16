@@ -1,0 +1,10 @@
+# Quantum Nexus PC Codex defaults.
+# CLI flags in .codex/run_task.sh repeat the critical controls deliberately.
+sandbox_mode = "workspace-write"
+approval_policy = "never"
+
+[sandbox_workspace_write]
+network_access = false
+
+[features]
+hooks = true
