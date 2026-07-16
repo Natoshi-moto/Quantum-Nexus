@@ -55,3 +55,8 @@ A fail-closed PC-side prototype was added after the scaffold. The real `.codex/N
 `TASK-0002-private-dump-reconciliation` completed on Fedora. GitHub comparison showed the PC branch changed only the schema-bounded sanitized receipt, which was promoted to `main` at `fa53e99a220387c205837b514e7fcf79f5d2a6a1`. The receipt reports the nested checkout boundary passed and records aggregate category counts only.
 
 The supplied local terminal trace also showed that the task agent opened and displayed the local vault before producing the safe receipt. No vault or raw log entered GitHub, and the registry contained no credentials, but the read/display violated policy. The launcher is now remediated with a fail-closed `PreToolUse` path block, a startup self-test, a prompt that makes the vault host-only, and stricter `AGENTS.md` language. See `handoffs/INCIDENT_2026-07-16_vault-terminal-disclosure.md`.
+
+
+## PC control-plane privacy regression
+
+`TASK-0003-control-plane-privacy-regression` completed on Fedora. GitHub comparison showed branch `pc/task-0003-control-plane-privacy-regression` exactly one commit ahead of `main`, changing only the nine-line sanitized receipt. The task agent started after the launcher's host-side hook preflight, the `PreToolUse` hook ran before every tool call shown in the local trace, and the agent made no private-control-plane, outer-dump, or network access attempt. The receipt was promoted to `main` at `0e40db743cd1e1a9d6bb3b6f0aab426dfa6ba951`.
