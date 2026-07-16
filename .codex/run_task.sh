@@ -52,12 +52,13 @@ receipt="$repo_root/control/receipts/$task_id.md"
 prompt="Execute the task in control/tasks/$task_id.md. Obey AGENTS.md and .codex/NO_LEAK_VAULT. The outer dump is readable context but is not writable and is not export-authorized. Write only inside this Git checkout. Do not commit, push, use network tools, modify .git or .codex, or print protected content. Create a sanitized receipt at control/receipts/$task_id.md."
 
 set +e
-codex exec \
-  --ephemeral \
+codex \
   --strict-config \
   --sandbox workspace-write \
   --ask-for-approval never \
   --cd "$repo_root" \
+  exec \
+  --ephemeral \
   "$prompt" > "$raw_log"
 codex_status=$?
 set -e
