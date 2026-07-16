@@ -60,3 +60,10 @@ The supplied local terminal trace also showed that the task agent opened and dis
 ## PC control-plane privacy regression
 
 `TASK-0003-control-plane-privacy-regression` completed on Fedora. GitHub comparison showed branch `pc/task-0003-control-plane-privacy-regression` exactly one commit ahead of `main`, changing only the nine-line sanitized receipt. The task agent started after the launcher's host-side hook preflight, the `PreToolUse` hook ran before every tool call shown in the local trace, and the agent made no private-control-plane, outer-dump, or network access attempt. The receipt was promoted to `main` at `0e40db743cd1e1a9d6bb3b6f0aab426dfa6ba951`.
+
+
+## Provider-neutral canonical workflow
+
+`TASK-0004-provider-neutral-canonical-chain` replaced the temporary provider-exclusive bootstrap rule with a human-owned canonical change chain. The task was opened from base `bba869ba434c58f41d50b9a96fa29c9493c07771` at `244e9d3d8384ba4bfa5efaa0caea50b8dcfdf467`. The canonical workflow landed at `203bf1c4cd0a3c07c27586b467b4cc5559db244c`, the Claude Code entrypoint at `5407d31dc2e7557894c0156104c4e70b274f20f3`, and the shared `AGENTS.md` contract at `9545c912b4438a3c1c404ab460b4f3226dcfe01f`. The receipt was read back from `main` at `96a12e5fbac00da79375f3fb15a13a44229c4143`.
+
+The human repository owner is final authority. Claude Code, Codex, chat-connected agents, and human-authored changes now use the same task, recorded base, actor branch, verification, receipt, independent review, integration, and fast-forward synchronization chain. The Claude Code automation launcher is deliberately not claimed complete until the installed PC version and its sandbox, permissions, and hooks are verified in a separate task.
