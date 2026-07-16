@@ -19,6 +19,7 @@ fi
 
 command -v codex >/dev/null || die 'Codex CLI is not installed or not on PATH'
 command -v git >/dev/null || die 'Git is not installed or not on PATH'
+command -v python3 >/dev/null || die 'Python 3 is not installed or not on PATH'
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(git -C "$script_dir/.." rev-parse --show-toplevel 2>/dev/null)" || die 'launcher is not inside a Git checkout'
@@ -26,6 +27,19 @@ repo_root="$(realpath -- "$repo_root")"
 cd "$repo_root"
 
 "$repo_root/.codex/no_leak_guard.sh" --config-only
+
+hook_script="$repo_root/.codex/hooks/pre_tool_use_policy.py"
+[[ -f "$hook_script" ]] || die 'private control-plane hook is missing'
+hook_probe="$(printf '%s\n' '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"read .codex/NO_LEAK_VAULT"}}' | python3 "$hook_script")"
+python3 - "$hook_probe" <<'PY' || die 'private control-plane hook self-test failed'
+import json
+import sys
+
+payload = json.loads(sys.argv[1])
+result = payload.get("hookSpecificOutput", {})
+if result.get("permissionDecision") != "deny":
+    raise SystemExit(1)
+PY
 
 [[ -z "$(git status --porcelain=v1 --untracked-files=all)" ]] || die 'working tree must be completely clean before a controlled run'
 [[ "$(git branch --show-current)" == 'main' ]] || die 'start a controlled run from main'
@@ -49,13 +63,14 @@ mkdir -p "$repo_root/.codex/local-runs"
 raw_log="$repo_root/.codex/local-runs/$task_id.final.txt"
 receipt="$repo_root/control/receipts/$task_id.md"
 
-prompt="Execute the task in control/tasks/$task_id.md. Obey AGENTS.md and .codex/NO_LEAK_VAULT. The outer dump is readable context but is not writable and is not export-authorized. Write only inside this Git checkout. Do not commit, push, use network tools, modify .git or .codex, or print protected content. Create a sanitized receipt at control/receipts/$task_id.md."
+prompt="Execute the task in control/tasks/$task_id.md and obey AGENTS.md. The host has already validated the private vault; never read, open, search, list, quote, or print .codex or its local run logs. The outer dump is readable context but is not writable and is not export-authorized. Write only inside this Git checkout. Do not commit, push, use network tools, modify .git or .codex, or print protected content. Create a sanitized receipt at control/receipts/$task_id.md."
 
 set +e
 codex \
   --strict-config \
   --sandbox workspace-write \
   --ask-for-approval never \
+  --dangerously-bypass-hook-trust \
   --cd "$repo_root" \
   exec \
   --ephemeral \
