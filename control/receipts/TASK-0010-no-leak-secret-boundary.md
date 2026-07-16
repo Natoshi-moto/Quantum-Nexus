@@ -16,7 +16,7 @@ task-opening commit: `1e6fe94a786e4bd6856e09ca203ea2a46caa1ad5` — `T1_EXECUTED
 
 The stopped TASK-0009 receipt accurately contained the branch `pc/task-0009-codex-cross-provider-review-and-implementation`. The canonical scanner's unbounded OpenAI-style alternative matched the word-internal substring beginning at the final two letters of `task-` and produced an obvious-credential false positive — `T1_EXECUTED` against the supplied public task output and `T2_READ` against the canonical guard source.
 
-No credential was inferred from the blocked message. The raw host log, vault, outer dump, and private material were not inspected.
+No credential was inferred from the blocked message. The user supplied a pasted task-output excerpt containing Codex trace and diff text; this actor inspected that supplied attachment but did not access `.codex/local-runs` or another protected host path. The attachment's exact origin is `T3_RELAYED/UNKNOWN`, and the attachment is not included in this branch. The vault, outer dump, and private material were not inspected.
 
 ## Changed paths
 
@@ -54,7 +54,7 @@ The regression constructs synthetic credential shapes at runtime so its source d
 
 ## Limitations
 
-- This actor did not access or execute against the host-only vault.
+- This actor did not access or execute against the host-only vault or `.codex/local-runs`; it did inspect the user-supplied pasted output described above.
 - The full staged-content guard was not run in this scratch environment because its trusted host configuration is intentionally unavailable.
 - Passing the lexical regression does not prove general secret detection or eliminate false negatives.
 - The stopped TASK-0009 work remains unintegrated and must be rechecked with the reviewed guard bytes; this task does not authorize bypassing the guard.
