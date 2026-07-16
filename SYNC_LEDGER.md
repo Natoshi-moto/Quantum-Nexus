@@ -81,3 +81,11 @@ Local static tests in the integration environment passed JSON, shell, and Python
 `TASK-0006-claude-control-smoke` ran on Fedora through `bash .claude/run_task.sh` with Claude Code `2.1.211`. GitHub comparison showed branch `claude/task-0006-claude-control-smoke` exactly one commit ahead of base `a6f7dc233e48217fed9d3371c022e71f3e61d18a`, changing only the 13-line sanitized receipt. The receipt reports the correct base, valid `claude/` task branch, clean starting tree, and no private-control-plane, outer-dump, network/remote, or session Git-mutation attempt. The exact receipt was promoted to `main` at `48bc53bd9fbaf8b70d718c734175751302988955`.
 
 Claude Code is now an operational peer worker under the provider-neutral canonical workflow. This establishes the controlled task/receipt/branch loop; every future Claude change still requires its own task, independent diff review, integration record, and fast-forward synchronization.
+
+## TASK-0007 canonical project-map integration
+
+PR #1 proposed the canonical project map and its sanitized task receipt from task-opening base `96230ca1469fd66b194781bd1bf8e681a2b635ce`. A separate Claude Code session returned `APPROVE`, reported no discrepancy against the recorded base, current `main`, authorized paths, required results, evidence-tier discipline, factual accuracy, stale-documentation findings, or privacy boundaries, and stated that the reviewed bytes were safe for a separate integration step.
+
+This separate integration session independently reverified live GitHub state immediately before merging: PR head `5589d634b1898416b94e43d92d9c44e8f15397cf` was two commits ahead and zero behind unchanged `main`; the merge base was the task-opening commit; and the complete diff contained exactly `design/PROJECT_MAP.md` and `control/receipts/TASK-0007-project-map.md`. The PR was marked ready and merged with GitHub's history-preserving merge method at `0e1b76a632f1858172b6110c4aa4b288e7dff4f1`, preserving map commit `e1d35c3e53bb1cf7cb236f5fc3f7e934b815c14a` and receipt commit `5589d634b1898416b94e43d92d9c44e8f15397cf`.
+
+`NEXUS-CAPSULE-0001` remains a `RECOMMENDATION` only. This integration grants no authority to implement it, import private or external material, alter governance, or claim the proposed unified product already exists.
