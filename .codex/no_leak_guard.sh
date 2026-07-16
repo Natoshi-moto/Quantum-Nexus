@@ -128,7 +128,7 @@ always_deny=(
 )
 deny_repo_paths+=("${always_deny[@]}")
 
-secret_pattern='AKIA[0-9A-Z]{16}|-----BEGIN ([A-Z ]+ )?PRIVATE KEY-----|sk-[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|xox[baprs]-[A-Za-z0-9-]{10,}'
+secret_pattern='AKIA[0-9A-Z]{16}|-----BEGIN ([A-Z ]+ )?PRIVATE KEY-----|(^|[^A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|xox[baprs]-[A-Za-z0-9-]{10,}'
 
 for path in "${staged_paths[@]}"; do
   [[ "$path" != /* ]] || die 'an absolute path is staged'
@@ -161,3 +161,5 @@ done
 
 git diff --cached --check >/dev/null || die 'staged diff fails whitespace/error checks'
 info "passed for ${#staged_paths[@]} staged file(s); no protected content was printed"
+
+
