@@ -74,3 +74,10 @@ The human repository owner is final authority. Claude Code, Codex, chat-connecte
 `TASK-0005-claude-code-control-bootstrap` opened from base `84e8dd15af7dedbb7ad733a4250c975132b1e264` at `a02953194b6f00001a7aaea6fd48f9b618594d47`. Claude project deny rules landed at `90c838283926705acd19aac5143f8458748992f1`, the controlled launcher at `ef5356f081d13a78529a95e9c85e7a6a013deae0`, the provider-neutral pre-tool hook at `e74a460da24ecfd80b87c2cfc33eeafe4ab61101`, local-state ignore rules at `1dfb3fbecd04a5bfab7db790008b31832603cd55`, and the design record at `16639fe8252f733ff41b65fa4e4b9393b642bdba`. The static receipt landed at `717bf67aee7a40c8930d207e06d7ea6a45241a56`.
 
 Local static tests in the integration environment passed JSON, shell, and Python syntax; protected Read, Edit, and Bash inputs were denied; and a safe Git status input was allowed. The launcher uses `acceptEdits`, not Claude's dangerous permission-bypass mode. Operational status remains pending until the target Fedora PC completes the separate Claude smoke task and GitHub comparison confirms a receipt-only branch.
+
+
+## Claude Code operational handshake
+
+`TASK-0006-claude-control-smoke` ran on Fedora through `bash .claude/run_task.sh` with Claude Code `2.1.211`. GitHub comparison showed branch `claude/task-0006-claude-control-smoke` exactly one commit ahead of base `a6f7dc233e48217fed9d3371c022e71f3e61d18a`, changing only the 13-line sanitized receipt. The receipt reports the correct base, valid `claude/` task branch, clean starting tree, and no private-control-plane, outer-dump, network/remote, or session Git-mutation attempt. The exact receipt was promoted to `main` at `48bc53bd9fbaf8b70d718c734175751302988955`.
+
+Claude Code is now an operational peer worker under the provider-neutral canonical workflow. This establishes the controlled task/receipt/branch loop; every future Claude change still requires its own task, independent diff review, integration record, and fast-forward synchronization.
