@@ -20,11 +20,13 @@ Raw transcripts, archived prompts, and attachments are `untrusted_non_executable
 
 Captured/historical records (genesis segments, checkpoints, sidecars) are never edited or deleted in an ordinary change. Corrections are additive and reference what they correct. If something looks wrong, add a new record that says so — don't rewrite the old one.
 
-## 4. The sync boundary is the zip, not the PC folder
+## 4. PC dump boundary and GitHub ownership
 
-If you're the CLI agent working from the full PC folder: you have visibility into far more than this repo should ever contain. Nothing you see there is repo-ready by default. Only what the human has deliberately placed into the current versioned `.zip` is in scope for GitHub. If you think something from the wider folder belongs in the repo, name it and ask — don't add it because it seemed relevant.
+The human's outer Quantum Nexus folder on the PC is a **DUMP**. A PC-side agent may read it for project context, but read access is not export authority and the dump is not writable.
 
-Current convention (open for the human to confirm or change — see `SYNC_LEDGER.md` open question #1): the chat-based agent (this thread) is the one that actually pushes to GitHub, so there's a single writer and no two agents racing to commit. The CLI agent's job is to keep the PC folder and the exported zip honest, flag drift, and hand off findings.
+The only writable project path is the actual `Quantum-Nexus` Git checkout nested inside that dump. Before every PC-side write, resolve the Git root with `git rev-parse --show-toplevel`, confirm its `origin` is `Natoshi-moto/Quantum-Nexus`, resolve the target path, and reject the write unless the target remains inside that Git root. Never add the outer dump as a writable root.
+
+For the initial control plane, this chat-connected agent is the only direct writer to GitHub `main`. PC Codex works only inside the nested checkout and returns reviewable changes plus a receipt; it must not push directly to `main`. A local-only `.codex/NO_LEAK_VAULT` defines material that may be read but must never be copied, quoted, committed, pushed, attached, or otherwise exported. The vault itself must never enter Git.
 
 ## 5. Every session gets logged
 
