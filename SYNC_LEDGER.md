@@ -44,3 +44,7 @@ Ran a pattern scan (AWS keys, PEM private key headers, OpenAI-style `sk-` tokens
 ## PC Codex control-plane bootstrap
 
 A fail-closed PC-side prototype was added after the scaffold. The real `.codex/NO_LEAK_VAULT` is local-only and ignored; the public repo contains only a redacted template. Local T1 tests observed: valid configuration passed; safe staged content passed; an exact copy of protected dump content was blocked; an obvious credential pattern was blocked; and a symlink/path escape was blocked without printing protected content. The smoke task is ready but **has not run on the user's PC**, so remote control is not yet claimed.
+
+## PC control-plane handshake
+
+`TASK-0001-smoke-test` completed on Fedora with Codex CLI `0.144.4`. GitHub comparison showed branch `pc/task-0001-smoke-test` exactly one commit ahead of `main`, changing only `control/receipts/TASK-0001-smoke-test.md` (10 additions, 0 deletions). The sanitized receipt was read directly from GitHub and promoted to `main` at `c636c30dcf48d189ce6ba1f1dde0a94f8f740f46`. The bounded PC task/receipt loop is therefore connected; this does not broaden the PC write boundary or waive review for later tasks.
