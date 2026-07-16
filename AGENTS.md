@@ -26,7 +26,7 @@ The human's outer Quantum Nexus folder on the PC is a **DUMP**. A PC-side agent 
 
 The only writable project path is the actual `Quantum-Nexus` Git checkout nested inside that dump. Before every PC-side write, resolve the Git root with `git rev-parse --show-toplevel`, confirm its `origin` is `Natoshi-moto/Quantum-Nexus`, resolve the target path, and reject the write unless the target remains inside that Git root. Never add the outer dump as a writable root.
 
-For the initial control plane, this chat-connected agent is the only direct writer to GitHub `main`. PC Codex works only inside the nested checkout and returns reviewable changes plus a receipt; it must not push directly to `main`. A local-only `.codex/NO_LEAK_VAULT` defines material that may be read but must never be copied, quoted, committed, pushed, attached, or otherwise exported. The vault itself must never enter Git.
+For the initial control plane, this chat-connected agent is the only direct writer to GitHub `main`. PC Codex works only inside the nested checkout and returns reviewable changes plus a receipt; it must not push directly to `main`. The local-only `.codex/NO_LEAK_VAULT` is a host-only policy registry. A task agent must never read, open, search, list, quote, print, modify, or otherwise inspect the vault or `.codex/local-runs`; only the trusted host launcher, guard, and pre-tool hook may access those paths. The vault and local run logs must never enter Git.
 
 ## 5. Every session gets logged
 
