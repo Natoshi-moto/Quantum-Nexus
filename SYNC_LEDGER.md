@@ -48,3 +48,10 @@ A fail-closed PC-side prototype was added after the scaffold. The real `.codex/N
 ## PC control-plane handshake
 
 `TASK-0001-smoke-test` completed on Fedora with Codex CLI `0.144.4`. GitHub comparison showed branch `pc/task-0001-smoke-test` exactly one commit ahead of `main`, changing only `control/receipts/TASK-0001-smoke-test.md` (10 additions, 0 deletions). The sanitized receipt was read directly from GitHub and promoted to `main` at `c636c30dcf48d189ce6ba1f1dde0a94f8f740f46`. The bounded PC task/receipt loop is therefore connected; this does not broaden the PC write boundary or waive review for later tasks.
+
+
+## PC private-dump reconciliation and control-plane incident
+
+`TASK-0002-private-dump-reconciliation` completed on Fedora. GitHub comparison showed the PC branch changed only the schema-bounded sanitized receipt, which was promoted to `main` at `fa53e99a220387c205837b514e7fcf79f5d2a6a1`. The receipt reports the nested checkout boundary passed and records aggregate category counts only.
+
+The supplied local terminal trace also showed that the task agent opened and displayed the local vault before producing the safe receipt. No vault or raw log entered GitHub, and the registry contained no credentials, but the read/display violated policy. The launcher is now remediated with a fail-closed `PreToolUse` path block, a startup self-test, a prompt that makes the vault host-only, and stricter `AGENTS.md` language. See `handoffs/INCIDENT_2026-07-16_vault-terminal-disclosure.md`.
