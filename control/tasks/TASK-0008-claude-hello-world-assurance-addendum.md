@@ -71,3 +71,9 @@ After both provider artifacts are integrated, two fresh read-only audit sessions
 One ChatGPT auditor and one Claude auditor must each return `APPROVE`, `REQUEST CHANGES`, or `BLOCKED` with exact evidence. Neither auditor should be shown the other auditor's verdict before submitting its first verdict. Agreement is evidence of convergence, not proof; disagreement is retained and reconciled additively.
 
 No audit session may modify code, task records, receipts, branches, PRs, or `main`. A separate integration/acceptance session records the outcome only after both reports exist.
+
+## Clarifications and follow-on gate
+
+For avoidance of doubt, the original prohibition on reading command-line input means that user-supplied values must not influence or be incorporated into the greeting. Inspecting whether unexpected arguments are present solely to reject them deterministically is required and permitted.
+
+A source-backed namespace discrepancy exists before the Codex follow-on: `CANONICAL_WORKFLOW.md` names `codex/<task-slug>` as the Codex actor branch class, while the current `.codex/run_task.sh` creates `pc/<task-slug>`. This does not block TASK-0008's Claude branch. It is a hard precondition for TASK-0009: before Codex performs writable work, a separate human-authorized task must either reconcile the launcher with the canonical `codex/` namespace or record an explicit reviewed exception. The dual auditors must check this point rather than treating the two names as interchangeable.
