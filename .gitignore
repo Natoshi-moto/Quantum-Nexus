@@ -11,3 +11,7 @@ Thumbs.db
 /.codex/NO_LEAK_VAULT.*
 !/.codex/NO_LEAK_VAULT.example
 /.codex/local-runs/
+
+# Claude Code local-only state
+/.claude/settings.local.json
+/.claude/worktrees/
