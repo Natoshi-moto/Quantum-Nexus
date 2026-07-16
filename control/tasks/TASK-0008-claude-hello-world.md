@@ -78,3 +78,6 @@ Create `control/receipts/TASK-0008-claude-hello-world.md` containing:
 - Do not commit, push, merge, or update `main`; the host launcher owns branch commit/push mechanics.
 - Do not create TASK-0009 or claim that Codex reviewed this work.
 - Do not broaden this task into `NEXUS-CAPSULE-0001` or any product implementation.
+## Pre-execution assurance amendment
+
+Before the first actor run, the human repository owner authorized additional falsifiability and dual-audit controls. The additive companion envelope at `control/tasks/TASK-0008-claude-hello-world-assurance-addendum.md` is a required part of this task. The actor must read and satisfy both files. The companion tightens verification but does not authorize any additional writable path.
